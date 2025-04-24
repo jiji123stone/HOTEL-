@@ -1,0 +1,18 @@
+<section class="home">
+    <div class="content">
+      <div class="owl-carousel owl-theme">
+        <div class="item" *ngFor="let banner of banners">
+          <img [src]="banner.image" alt="">
+          <div class="text">
+            <h1>{{ banner.title }}</h1>
+            <p>{{ banner.description }}</p>
+            <div class="flex">
+              <button class="primary-btn">READ MORE</button>
+              <button class="secondary-btn">CONTACT US</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

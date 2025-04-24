@@ -1,0 +1,97 @@
+<section class="rooms">
+    <div class="container top">
+      <div class="heading">
+        <h1>EXPLORE</h1>
+        <h2>Our Rooms</h2>
+        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt</p>
+      </div>
+  
+      <div class="content mtop">
+        <div class="owl-carousel owl-carousel1 owl-theme">
+          <div class="items" *ngFor="let room of rooms">
+            <!-- Card Container -->
+            <div class="card" [ngClass]="{ 'reserved-border': room.reserved === 1 }">
+
+              <!-- Image Section -->
+              <div class="image">
+                <img [src]="room.image" [alt]="room.type">
+              </div>
+              <!-- Text Section -->
+              <div class="text">
+                <h2>{{ room.type }}</h2>
+                <div class="rate flex">
+                  <i class="fa fa-star" *ngFor="let star of [1,2,3,4,5]"></i>
+                </div>
+                <p>{{ room.capacite }} personne(s). <br>Équipements : {{ room.equipements }}.</p>
+                <div class="button flex">
+                  <button class="primary-btn"  (click)="bookNow(room)">BOOK NOW</button>
+                  <h3>${{ room.tarif }} <span><br>Per Night</span></h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <div class="modal" *ngIf="showModal">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h2>Formulaire de Réservation</h2>
+  
+      <p><strong>{{ selectedRoom?.type }}</strong> (Chambre n° {{ selectedRoom?.numero }})</p>
+      <p>Tarif : {{ selectedRoom?.tarif }} TND / Nuit</p>
+  
+      <form>
+        <label>Date d'arrivée :</label>
+        <input type="date" [(ngModel)]="reservationData.dateArrivee" name="dateArrivee">
+  
+        <label>Date de départ :</label>
+        <input type="date" [(ngModel)]="reservationData.dateDepart" name="dateDepart">
+  
+        <label>Nombre de personnes :</label>
+        <input type="number" [(ngModel)]="reservationData.nombrePersonnes" name="nombrePersonnes" min="1">
+  
+        <label>Type de paiement :</label>
+        <select [(ngModel)]="reservationData.typePaiement" name="typePaiement">
+          <option value="carte">Carte Bancaire</option>
+          <option value="espece">Espèces</option>
+          <option value="paypal">PayPal</option>
+        </select>
+  
+        <div style="margin-top: 10px;">
+          <button type="button" (click)="calculateTotal()" class="primary-btn">Calculer le Total</button>
+          <p *ngIf="reservationData.total > 0">Total : {{ reservationData.total }} TND</p>
+        </div>
+  
+        <button type="button" (click)="confirmReservation()" class="primary-btn" [disabled]="reservationData.total === 0">
+          Confirmer la Réservation
+        </button>
+      </form>
+    </div>
+  </div>
+  
+
+
+
+
+
+
+
+
+  <!-- 
+  <div class="modal" *ngIf="showModal">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h2>Confirmation de Réservation</h2>
+      <p>Vous avez réservé : <strong>{{ selectedRoom?.type }}</strong></p>
+      <p>Numéro de chambre : {{ selectedRoom?.numero }}</p>
+      <p>Tarif : {{ selectedRoom?.tarif }} TND / Nuit</p>
+      <p>Équipements : {{ selectedRoom?.equipements }}</p>
+      <button (click)="closeModal()" class="primary-btn">Fermer</button>
+    </div>
+  </div>
+  -->

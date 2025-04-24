@@ -1,0 +1,21 @@
+<section class="book">
+    <div class="container flex_space">
+      <div class="text">
+        <h1> <span>Book </span> Your Rooms </h1>
+      </div>
+      <div class="form">
+        <form class="grid" (ngSubmit)="checkAvailability()">
+          <input type="number" placeholder="Capacity" [(ngModel)]="searchCapacity" name="capacity">
+          <input type="number" placeholder="Price" [(ngModel)]="searchPrice" name="price">
+          <input type="submit" value="CHECK AVAILABILITY">
+        </form>
+      </div>
+    </div>
+  
+    <div class="result" *ngIf="searchResult !== null">
+        <p [ngClass]="{ 'yes': searchResult === 'Oui, existe', 'no': searchResult === 'Non' }">
+            {{ searchResult === 'Oui, existe' ? 'Oui 😊' : 'Non 😢' }}
+          </p>
+    </div>
+  </section>
+  

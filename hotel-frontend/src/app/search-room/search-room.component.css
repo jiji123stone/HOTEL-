@@ -1,0 +1,79 @@
+/*--------book---------*/
+.grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 20px;
+  }
+  
+  input {
+    outline: none;
+    border: none;
+    width: 100%;
+  }
+  
+  .book {
+    margin-top: 75px;
+    padding: 40px 0;
+    background: #282834;
+    color: #fff;
+  }
+  
+  h1 {
+    font-family: serif;
+  }
+  
+  .book h1 {
+    font-size: 28px;
+  }
+  
+  .book h1 span {
+    color: #7fc142;
+  }
+  
+  .book input {
+    padding: 20px;
+  }
+  
+  .book input:nth-last-child(1) {
+    background: #7fc142;
+    color: #fff;
+  }
+
+
+
+
+  .result {
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    padding: 15px;
+     
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  /* Style conditionnel via Angular */
+  .result p {
+    color: white;
+    
+    padding: 10px 20px;
+    
+  }
+  
+  /* Ajoute ce style si tu veux gérer dynamiquement en HTML via une classe */
+  .result p.yes {
+    background-color: #7bda7e; /* Vert */
+  }
+  
+  .result p.no {
+    background-color: #ec2315; /* Rouge */
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  
