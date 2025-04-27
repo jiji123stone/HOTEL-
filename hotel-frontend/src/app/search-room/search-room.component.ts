@@ -8,7 +8,6 @@ import { RoomService } from '../services/room.service';
 })
 export class SearchRoomComponent implements OnInit {
   rooms: any[] = [];
-
   searchCapacity: number = 0;
   searchPrice: number = 0;
   searchResult: string | null = null;
@@ -16,16 +15,21 @@ export class SearchRoomComponent implements OnInit {
   constructor(private roomService: RoomService) {}
 
   ngOnInit(): void {
-    this.rooms = this.roomService.getRooms();
+    // On s'abonne à l'Observable pour récupérer les chambres
+    this.roomService.getRooms().subscribe((data) => {
+      this.rooms = data; // On récupère les chambres dès que les données sont disponibles
+    });
   }
 
-  checkAvailability() {
+  checkAvailability(): void {
+    // Recherche d'une chambre qui correspond aux critères de recherche
     const match = this.rooms.find(room =>
       room.capacite >= this.searchCapacity &&
       room.tarif <= this.searchPrice &&
       room.reserved === 0
     );
 
+    // Affiche le résultat
     this.searchResult = match ? 'Oui, existe' : 'Non';
   }
 }

@@ -7,24 +7,24 @@
       </div>
   
       <div class="content mtop">
-        <div class="owl-carousel owl-carousel1 owl-theme">
+        <div class="cards-list">
           <div class="items" *ngFor="let room of rooms">
-            <!-- Card Container -->
             <div class="card" [ngClass]="{ 'reserved-border': room.reserved === 1 }">
-
-              <!-- Image Section -->
               <div class="image">
-                <img [src]="room.image" [alt]="room.type">
+                <img [src]="room.urlImage" [alt]="room.type">
               </div>
-              <!-- Text Section -->
               <div class="text">
                 <h2>{{ room.type }}</h2>
                 <div class="rate flex">
-                  <i class="fa fa-star" *ngFor="let star of [1,2,3,4,5]"></i>
+                  <i *ngFor="let i of [1,2,3,4,5]" 
+                     class="fa" 
+                     [ngClass]="i <= room.star ? 'fa-star' : 'fa-star-o'">
+                  </i>
                 </div>
+                
                 <p>{{ room.capacite }} personne(s). <br>Équipements : {{ room.equipements }}.</p>
                 <div class="button flex">
-                  <button class="primary-btn"  (click)="bookNow(room)">BOOK NOW</button>
+                  <button class="primary-btn" (click)="bookNow(room)">BOOK NOW</button>
                   <h3>${{ room.tarif }} <span><br>Per Night</span></h3>
                 </div>
               </div>
@@ -32,6 +32,7 @@
           </div>
         </div>
       </div>
+      
     </div>
   </section>
 
@@ -64,10 +65,10 @@
   
         <div style="margin-top: 10px;">
           <button type="button" (click)="calculateTotal()" class="primary-btn">Calculer le Total</button>
-          <p *ngIf="reservationData.total > 0">Total : {{ reservationData.total }} TND</p>
+          <p *ngIf="reservationData.montantTotal > 0">Total : {{ reservationData.montantTotal }} TND</p>
         </div>
   
-        <button type="button" (click)="confirmReservation()" class="primary-btn" [disabled]="reservationData.total === 0">
+        <button type="button" (click)="confirmReservation()" class="primary-btn" [disabled]="reservationData.montantTotal === 0">
           Confirmer la Réservation
         </button>
       </form>

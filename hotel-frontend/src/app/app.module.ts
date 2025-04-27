@@ -9,6 +9,10 @@ import { AboutComponent } from './about/about.component';
 import { RoomsComponent } from './rooms/rooms.component';
 import { FormsModule } from '@angular/forms';
 import { SearchRoomComponent } from './search-room/search-room.component';
+import { RoomsAdminComponent } from './rooms-admin/rooms-admin.component';
+import { AddRoomComponent } from './add-room/add-room.component';
+import { ReservationComponent } from './reservation/reservation.component';
+import { HttpClientModule } from '@angular/common/http';
  
 
 @NgModule({
@@ -19,12 +23,16 @@ import { SearchRoomComponent } from './search-room/search-room.component';
     AboutComponent,
     RoomsComponent,
     SearchRoomComponent,
+    RoomsAdminComponent,
+    AddRoomComponent,
+    ReservationComponent,
     
     
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule, 
     FormsModule
   ],
   providers: [],

@@ -11,26 +11,6 @@
     gap: 20px;
     justify-content: center; /* Centrage horizontal */
   }
-  .cards-list {
-    display: flex;
-    flex-wrap: nowrap; /* PAS de retour à la ligne */
-    overflow-x: auto; /* Scroll horizontal si besoin */
-    gap: 20px; /* Espacement entre les cartes */
-    padding-bottom: 10px;
-  }
-  
-  .items {
-    flex: 0 0 auto; /* Chaque carte garde sa taille */
-    width: 300px; /* largeur fixe pour chaque carte */
-    margin-right: 50px;
-  }
-  
-  .card {
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    overflow: hidden;
-    background: white;
-  }
   
   .rooms .card {
     width: 350px;
@@ -61,7 +41,7 @@
   }
   
   .rooms .text {
-    padding: 20px;
+    padding: 15px;
   }
   
   .rooms h2 {
@@ -74,9 +54,9 @@
   }
   
   .rooms .rate i {
-    font-size: 14px;
+    font-size: 12px;
     color: #fbb234;
-    margin-right: 3px;
+    margin-right: 2px;
   }
   
   .rooms p {
@@ -102,9 +82,10 @@
   
   .rooms .button {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     margin-top: 20px;
+    gap: 10px;
   }
   
   .rooms .button .primary-btn {
@@ -121,14 +102,21 @@
   .rooms .button .primary-btn:hover {
     background-color: #6ba539;
   }
-
-  .reserved-border {
-    border: 1px solid red !important;
+  
+  .rooms .primary-btn.danger {
+    background-color: #e74c3c;
   }
   
- 
-
-
+  .rooms .primary-btn.danger:hover {
+    background-color: #c0392b;
+  }
+  
+  .reserved-border {
+    border: 2px solid red !important;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+  }
+  
+  /*--------modal---------*/
   .modal {
     position: fixed;
     top: 0;
@@ -188,7 +176,7 @@
   .modal-content .primary-btn {
     margin-top: 15px;
     padding: 10px;
-    background-color:  #6ba539;;
+    background-color: #6ba539;
     color: white;
     border: none;
     border-radius: 5px;
@@ -197,7 +185,7 @@
   }
   
   .modal-content .primary-btn:hover {
-    background-color:  #6ba539;
+    background-color: #5d9432;
   }
   
   .modal-content p {
@@ -206,7 +194,21 @@
   }
   
   @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.8); }
-    to { opacity: 1; transform: scale(1); }
+    from {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  /* Responsive modal */
+  @media (max-width: 600px) {
+    .modal-content {
+      width: 90%;
+      padding: 20px;
+    }
   }
   

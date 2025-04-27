@@ -1,4 +1,78 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class RoomService {
+  private apiUrl = 'http://localhost:8082/api/chambres'; // URL de l'API pour les chambres
+  private reservationUrl = 'http://localhost:8082/api/reservations'; // URL de l'API pour les réservations
+
+  constructor(private http: HttpClient) {}
+
+  // Récupérer toutes les chambres
+  getRooms(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
+  }
+
+  // Récupérer la liste des réservations
+  getReservationList(): Observable<any[]> {
+    return this.http.get<any[]>(this.reservationUrl);
+  }
+
+  // Ajouter une réservation
+  addReservation(reservation: any): Observable<any> {
+    return this.http.post<any>(this.reservationUrl, reservation);
+  }
+
+  // Supprimer une réservation
+  deleteReservation(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.reservationUrl}/${id}`);
+  }
+
+  // Mettre à jour une réservation
+  updateReservation(reservation: any): Observable<any> {
+    return this.http.put<any>(`${this.reservationUrl}/${reservation.id}`, reservation);
+  }
+
+
+  // Mettre à jour le statut de la chambre (réservée)
+  updateRoomStatus(roomId: number, status: number): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${roomId}`, { reserved: status });
+  }
+
+   // Supprimer une chambre
+   deleteRoom(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  }
+  // Mettre à jour une chambre
+  updateRoom(room: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${room.id}`, room);
+  }
+
+  // room.service.ts
+
+addRoom(room: any): Observable<any> {
+  return this.http.post<any>(`${this.apiUrl}`, room);
+}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*import { Injectable } from '@angular/core';
+import { Reservation } from '../reservation';  // Assure-toi que tu importes l'interface Reservation
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +102,23 @@ export class RoomService {
     }
   ];
 
-  private reservationList: any[] = [];
+  private reservationList: Reservation[] = [
+    {
+      id: 1,
+      numero: '101',
+      capacite: 2,
+      dateArrivee: '2025-04-18',
+      dateDepart: '2025-04-30',
+      equipements: 'WiFi, TV, Minibar',
+      tarif: 250,
+      image: 'assets/images/room-1.png',
+      nombrePersonnes: 1,
+      reserved: 0,
+      total: 3000,
+      type: 'Superior Room',
+      typePaiement: 'espece'
+    }
+  ];
 
   constructor() {}
 
@@ -40,12 +130,29 @@ export class RoomService {
     return this.reservationList;
   }
 
-  addReservation(reservation: any) {
+  addReservation(reservation: Reservation) {
     this.reservationList.push(reservation);
+  }
+
+  updateReservation(  updatedReservation: Reservation) {  // Mise à jour du type de paramètre
+    const index = this.reservationList.findIndex(res => res.id === updatedReservation.id);
+    if (index !== -1) {
+      this.reservationList[index] = updatedReservation;
+    }
+  }
+
+  deleteReservation(id: number) {
+    this.reservationList = this.reservationList.filter(res => res.id !== id);
   }
 
   updateRoomStatus(id: number, reserved: number) {
     const room = this.rooms.find(r => r.id === id);
     if (room) room.reserved = reserved;
   }
-}
+
+  addRoom(room: any) {
+    const newId = this.rooms.length > 0 ? Math.max(...this.rooms.map(r => r.id)) + 1 : 1;
+    const newRoom = { ...room, id: newId, reserved: 0 };
+    this.rooms.push(newRoom);
+  }
+}*/

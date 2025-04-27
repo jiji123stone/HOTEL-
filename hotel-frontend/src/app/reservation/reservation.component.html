@@ -1,0 +1,69 @@
+<p>reservation works!</p>
+<p>Reservation Admin Works!</p>
+
+<section class="reservations">
+  <div class="container top">
+    <div class="heading">
+      <h1>GÉRER</h1>
+      <h2>Les Réservations</h2>
+      <p>Modifier, supprimer ou afficher les réservations existantes.</p>
+    </div>
+
+    <div class="content mtop">
+      <div class="owl-carousel owl-carousel1 owl-theme">
+        <div class="items" *ngFor="let reservation of reservations">
+          <div class="card">
+            <div class="image">
+              <img [src]="reservation.image" [alt]="reservation.type">
+            </div>
+            <div class="text">
+              <h2>{{ reservation.type }}</h2>
+              <p>Numéro de chambre: {{ reservation.numero }}</p>
+              <p>Capacité: {{ reservation.capacite }} personne(s)</p>
+              <p>Dates: {{ reservation.dateArrivee }} à {{ reservation.dateDepart }}</p>
+              <p>Équipements: {{ reservation.equipements }}</p>
+              <p>Type de paiement: {{ reservation.typePaiement }}</p>
+              <h3>{{ reservation.tarif }} TND <span><br>Par Nuit</span></h3>
+              <p>Total: {{ reservation.total }} TND</p>
+
+              <div class="buttons flex">
+                <button class="primary-btn" (click)="openModal(reservation)">Modifier</button>
+                <button class="primary-btn danger" (click)="deleteReservation(reservation.id)">Supprimer</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modal -->
+<div class="modal" *ngIf="showModal">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <h2>Modifier la Réservation</h2>
+    <form (ngSubmit)="updateReservation()">
+      <label>Numéro de chambre:</label>
+      <input [(ngModel)]="selectedReservation.numero" name="numero" required> <br>
+
+      <label>Capacité:</label>
+      <input type="number" [(ngModel)]="selectedReservation.capacite" name="capacite" required> <br>
+
+      <label>Équipements:</label>
+      <input [(ngModel)]="selectedReservation.equipements" name="equipements" required> <br>
+
+      <label>Dates de séjour:</label>
+      <input type="date" [(ngModel)]="selectedReservation.dateArrivee" name="dateArrivee" required> <br>
+      <input type="date" [(ngModel)]="selectedReservation.dateDepart" name="dateDepart" required> <br>
+
+      <label>Tarif (TND):</label>
+      <input type="number" [(ngModel)]="selectedReservation.tarif" name="tarif" required> <br>
+
+      <label>Type de paiement:</label>
+      <input [(ngModel)]="selectedReservation.typePaiement" name="typePaiement" required> <br>
+
+      <button type="submit" class="primary-btn">Enregistrer</button>
+    </form>
+  </div>
+</div>
