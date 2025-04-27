@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 export class RoomService {
   private apiUrl = 'http://localhost:8082/api/chambres'; // URL de l'API pour les chambres
   private reservationUrl = 'http://localhost:8082/api/reservations'; // URL de l'API pour les réservations
+   
 
   constructor(private http: HttpClient) {}
 
@@ -53,9 +54,11 @@ export class RoomService {
 
   // room.service.ts
 
-addRoom(room: any): Observable<any> {
-  return this.http.post<any>(`${this.apiUrl}`, room);
-}
+  addRoom(room: any): Observable<any> {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.post<any>(this.apiUrl, room, { headers });
+  }
+  
 
 }
 

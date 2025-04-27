@@ -12,7 +12,7 @@ public class HotelApplication {
   public static void main(String[] args) {
     SpringApplication.run(HotelApplication.class, args);
   }
-
+   // ?useSSL=false&serverTimezone=UTC
   // Configuration CORS
   @Bean
   public WebMvcConfigurer corsConfigurer() {

@@ -18,7 +18,7 @@ public class Chambre {
   @ElementCollection
   private List<String> equipements;
 
-  private double tarif;
+  private int tarif;
   private int star;
   private int reserved ;
   // Ajout de l'attribut urlImage pour stocker l'URL de l'image
