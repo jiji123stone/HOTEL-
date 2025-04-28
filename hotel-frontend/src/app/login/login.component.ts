@@ -3,6 +3,8 @@ import { ClientService } from '../services/client.service';
 import { Client } from '../client';
 import { AdminService } from '../services/admin.service';
 import { Admin } from '../admin';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -18,7 +20,7 @@ export class LoginComponent {
   prenom: string = '';
   tel:string= '' ; // même si ton entité ne gère pas encore password
 
-  constructor(private clientService: ClientService , private adminService: AdminService) {}
+  constructor(private clientService: ClientService , private adminService: AdminService , private router: Router) {}
 
   signUp() {
     const client: Client = {
@@ -53,7 +55,8 @@ export class LoginComponent {
         this.client = data;
         console.log('Client trouvé:', this.client);
         alert('Bienvenue ' + this.client.nom);
-        window.location.href = '/assets/home.html';
+        this.router.navigate(['/header']); 
+       
       },
       error: (err) => {
         console.error('Erreur lors de la recherche du client:', err);

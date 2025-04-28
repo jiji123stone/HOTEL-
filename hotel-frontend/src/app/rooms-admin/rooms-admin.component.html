@@ -1,65 +1,74 @@
-<p>rooms-admin works!</p>
-
 <section class="rooms">
-    <div class="container top">
-      <div class="heading">
-        <h1>GÉRER</h1>
-        <h2>Les Chambres</h2>
-        <p>Modifier ou supprimer les chambres disponibles</p>
-      </div>
-  
-      <div class="content mtop">
-        <div class="owl-carousel owl-carousel1 owl-theme">
-          <div class="items" *ngFor="let room of rooms">
-            <div class="card" [ngClass]="{ 'reserved-border': room.reserved === 1 }">
-              <div class="image">
-                <img [src]="room.image" [alt]="room.type">
+  <div class="container top">
+    <div class="heading">
+      <h1>GÉRER</h1>
+      <h2>Les Chambres</h2>
+      <p>Modifier ou supprimer les chambres disponibles</p>
+    </div>
+
+    <div class="content mtop">
+      <div class="cards-list">
+        <div class="items" *ngFor="let room of rooms">
+          <div class="card" [ngClass]="{ 'reserved-border': room.reserved === 1 }">
+            <div class="image">
+              <img [src]="room.urlImage" [alt]="room.type">
+            </div>
+            <div class="text">
+              <h2>{{ room.type }}</h2>
+
+              <div class="rate flex">
+                <i *ngFor="let i of [1,2,3,4,5]" 
+                   class="fa" 
+                   [ngClass]="i <= room.star ? 'fa-star' : 'fa-star-o'">
+                </i>
               </div>
-              <div class="text">
-                <h2>{{ room.type }}</h2>
-                <div class="rate flex">
-                  <i class="fa fa-star" *ngFor="let star of [1,2,3,4,5]"></i>
-                </div>
-                <p>{{ room.capacite }} personne(s). <br>Équipements : {{ room.equipements }}.</p>
-                <div class="button flex">
-                  <button class="primary-btn" (click)="openModal(room)">Modifier</button> <br>
-                  <button class="primary-btn danger" (click)="deleteRoom(room.id)">Supprimer</button>
-                  <h3>{{ room.tarif }} TND <span><br>Par Nuit</span></h3>
-                </div>
+
+              <p>{{ room.capacite }} personne(s). <br>Équipements : {{ room.equipements.join(', ') }}.</p>
+
+              <div class="button flex">
+                <button class="primary-btn" (click)="openModal(room)">Modifier</button> 
+                <button class="primary-btn danger" (click)="deleteRoom(room.id)">Supprimer</button>
+                <h3>{{ room.tarif }} TND <span><br>Par Nuit</span></h3>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
-  
-  <!-- MODAL -->
-  <div class="modal" *ngIf="showModal">
-    <div class="modal-content">
-      <span class="close" (click)="closeModal()">&times;</span>
-      <h2>Modifier la Chambre</h2>
-      <form (ngSubmit)="updateRoom()">
-        <label>Numéro:</label>
-        <input [(ngModel)]="selectedRoom.numero" name="numero" required> <br>
-  
-        <label>Type:</label>
-        <input [(ngModel)]="selectedRoom.type" name="type" required> <br>
-  
-        <label>Capacité:</label>
-        <input type="number" [(ngModel)]="selectedRoom.capacite" name="capacite" required> <br>
-  
-        <label>Équipements:</label>
-        <input [(ngModel)]="selectedRoom.equipements" name="equipements" required> <br>
-  
-        <label>Tarif (TND):</label>
-        <input type="number" [(ngModel)]="selectedRoom.tarif" name="tarif" required> <br>
-  
-        <label>Image URL:</label>
-        <input [(ngModel)]="selectedRoom.image" name="image"> <br>
-  
-        <button type="submit" class="primary-btn">Enregistrer</button>
-      </form>
-    </div>
   </div>
-  
+</section>
+
+<!-- MODAL POUR MODIFIER -->
+<div class="modal" *ngIf="showModal">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <h2>Modifier la Chambre</h2>
+
+    <form (ngSubmit)="updateRoom()">
+      <label>Numéro:</label>
+      <input [(ngModel)]="selectedRoom.numero" name="numero" required> <br>
+
+      <label>Type:</label>
+      <input [(ngModel)]="selectedRoom.type" name="type" required> <br>
+
+      <label>Capacité:</label>
+      <input type="number" [(ngModel)]="selectedRoom.capacite" name="capacite" required> <br>
+
+      <label>Équipements (séparés par des virgules):</label>
+      <input [(ngModel)]="selectedRoom.equipementsString" name="equipements" required> <br>
+
+      <label>Tarif (TND):</label>
+      <input type="number" [(ngModel)]="selectedRoom.tarif" name="tarif" required> <br>
+
+      <label>Image URL:</label>
+      <input [(ngModel)]="selectedRoom.urlImage" name="urlImage"> <br>
+
+      <label>Étoiles:</label>
+      <input type="number" min="1" max="5" [(ngModel)]="selectedRoom.star" name="star" required> <br>
+
+      <button type="submit" class="primary-btn">Enregistrer</button>
+    </form>
+  </div>
+</div>
+
+

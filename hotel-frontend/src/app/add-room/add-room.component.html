@@ -1,32 +1,28 @@
-<p>add-room works!</p>
-<button (click)="toggleForm()" class="btn btn-primary">Add Room</button>
+<section class="add-room">
+  <h2>Ajouter une Chambre</h2>
 
-<div *ngIf="showAddForm">
   <form (ngSubmit)="addRoom()">
-    <label>Numero:</label>
+    <label>Numéro:</label>
     <input [(ngModel)]="selectedRoom.numero" name="numero" required><br>
 
     <label>Type:</label>
     <input [(ngModel)]="selectedRoom.type" name="type" required><br>
 
-    <label>Capacity:</label>
+    <label>Capacité:</label>
     <input type="number" [(ngModel)]="selectedRoom.capacite" name="capacite" required><br>
 
-    <label>Equipements:</label>
+    <label>Équipements (séparés par des virgules):</label>
     <input [(ngModel)]="selectedRoom.equipements" name="equipements" required><br>
 
-
-
-    <label>Price (TND):</label>
+    <label>Tarif (TND):</label>
     <input type="number" [(ngModel)]="selectedRoom.tarif" name="tarif" required><br>
 
-    <label>Star:</label>
-    <input type="number" [(ngModel)]="selectedRoom.star" name="star" required><br>
-
+    <label>Étoiles:</label>
+    <input type="number" min="1" max="5" [(ngModel)]="selectedRoom.star" name="star" required><br>
 
     <label>Image URL:</label>
-    <input [(ngModel)]="selectedRoom.urlImage" name="image"><br>
+    <input [(ngModel)]="selectedRoom.urlImage" name="urlImage"><br>
 
-    <button type="submit" class="btn btn-success">Save</button>
+    <button type="submit" class="btn btn-success">Enregistrer</button>
   </form>
-</div>
+</section>

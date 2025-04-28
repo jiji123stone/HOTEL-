@@ -25,4 +25,10 @@ public class ChambreService {
     public void deleteById(Long id) {
         chambreRepository.deleteById(id);
     }
+
+  public Chambre findById(Long id) {
+    return chambreRepository.findById(id)
+      .orElseThrow(() -> new RuntimeException("Chambre non trouvée avec l'ID : " + id));
+  }
+
 }

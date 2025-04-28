@@ -38,10 +38,10 @@ export class RoomService {
   }
 
 
-  // Mettre à jour le statut de la chambre (réservée)
-  updateRoomStatus(roomId: number, status: number): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${roomId}`, { reserved: status });
+  updateRoomStatus(roomId: number, reservedStatus: number) {
+    return this.http.patch(`http://localhost:8082/api/chambres/${roomId}`, { reserved: reservedStatus });
   }
+  
 
    // Supprimer une chambre
    deleteRoom(id: number): Observable<any> {

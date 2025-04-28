@@ -22,7 +22,7 @@ public class HotelApplication {
         // Permet les requêtes CORS depuis http://localhost:4200 (Angular)
         registry.addMapping("/**")
           .allowedOrigins("http://localhost:4200")  // Remplacez par l'URL de votre front-end si nécessaire
-          .allowedMethods("GET", "POST", "PUT", "DELETE")
+          .allowedMethods("GET", "POST", "PUT", "DELETE" ,"PATCH")
           .allowedHeaders("*");  // Accepte tous les en-têtes
       }
     };

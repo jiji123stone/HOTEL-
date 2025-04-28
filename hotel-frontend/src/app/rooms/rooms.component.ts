@@ -17,7 +17,8 @@ export class RoomsComponent implements OnInit {
     dateDepart: '',
     nombrePersonnes: 1,
     typePaiement: '',
-    montantTotal: 0
+    montantTotal: 0,
+    client_id: 1,
   };
 
   constructor(private roomService: RoomService) {}
@@ -43,6 +44,10 @@ export class RoomsComponent implements OnInit {
 
   // Ouvrir la modal pour réserver une chambre
   bookNow(room: any) {
+    if (room.reserved === 1) {
+      alert('Cette chambre est déjà réservée.');
+      return;
+    }
     this.selectedRoom = room;
     this.showModal = true;
 
@@ -52,7 +57,8 @@ export class RoomsComponent implements OnInit {
       dateDepart: '',
       nombrePersonnes: 1,
       typePaiement: '',
-      montantTotal: 0
+      montantTotal: 0,
+      client_id:1 
     };
   }
 
@@ -62,26 +68,38 @@ export class RoomsComponent implements OnInit {
     const date2 = new Date(this.reservationData.dateDepart);
     const diffTime = date2.getTime() - date1.getTime();
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    this.reservationData.montantTotal = diffDays > 0 ? diffDays * this.selectedRoom.tarif : 0;
+
+    if (diffDays <= 0) {
+      this.reservationData.montantTotal = 0;
+      alert('Les dates de réservation ne sont pas valides.');
+    } else {
+      this.reservationData.montantTotal = diffDays * this.selectedRoom.tarif;
+    }
   }
 
   // Confirmer la réservation
   confirmReservation() {
+    if (this.reservationData.montantTotal <= 0) {
+      alert('Veuillez vérifier les dates et le montant total.');
+      return;
+    }
+
     const reservation = {
       ...this.reservationData,
-      chambre: { id: this.selectedRoom.id },  // ← juste l'id !!
+      chambre: { id: this.selectedRoom.id },
       client: { id: 1 }
     };
-    
 
+    // Ajouter la réservation
     this.roomService.addReservation(reservation).subscribe(() => {
+      // Mettre à jour le statut de la chambre à réservée (1) uniquement
+      this.selectedRoom.reserved = 1; // Met à jour le statut réservé localement
       this.roomService.updateRoomStatus(this.selectedRoom.id, 1).subscribe(() => {
-        this.loadRooms(); // Recharger les chambres après la réservation
+        // Recharger les chambres après la réservation pour voir la mise à jour
+        this.loadRooms();
         this.closeModal();
       });
     });
-
-    console.log("rrrrrrr",this.roomService.getReservationList())
   }
 
   // Fermer la modal
