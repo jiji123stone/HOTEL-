@@ -14,6 +14,7 @@ import { AddRoomComponent } from './add-room/add-room.component';
 import { ReservationComponent } from './reservation/reservation.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
+import { FooterComponent } from './footer/footer.component';
  
 
 @NgModule({
@@ -28,6 +29,7 @@ import { LoginComponent } from './login/login.component';
     AddRoomComponent,
     ReservationComponent,
     LoginComponent,
+    FooterComponent,
     
     
   ],
