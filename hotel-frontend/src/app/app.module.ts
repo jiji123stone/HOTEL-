@@ -13,6 +13,7 @@ import { RoomsAdminComponent } from './rooms-admin/rooms-admin.component';
 import { AddRoomComponent } from './add-room/add-room.component';
 import { ReservationComponent } from './reservation/reservation.component';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './login/login.component';
  
 
 @NgModule({
@@ -26,6 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
     RoomsAdminComponent,
     AddRoomComponent,
     ReservationComponent,
+    LoginComponent,
     
     
   ],

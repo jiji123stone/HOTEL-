@@ -1,0 +1,58 @@
+<p>login works!</p>
+
+
+<div class="container" id="container" #container>
+
+    <div class="form-container sign-up">
+      <form>
+        <h1>Create Account</h1>
+        <div class="social-icons">
+          <a href="#" class="icon"><i class="fab fa-google"></i></a>
+          <a href="#" class="icon"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="icon"><i class="fab fa-github"></i></a>
+          <a href="#" class="icon"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <span>or use your email for registration</span>
+        <input type="text" name="name" placeholder="Name" [(ngModel)]="name">
+        <input type="text" name="prenom" placeholder="Prenom" [(ngModel)]="prenom">
+
+        <input type="email" name="email" placeholder="Email" [(ngModel)]="email">
+        <input type="text" name="tel" placeholder="Telephone" [(ngModel)]="tel">
+        
+        <button type="button"  (click)="signUp()">Sign Up</button>
+      </form>
+    </div>
+  
+    <div class="form-container sign-in">
+      <form>
+        <h1>Sign In</h1>
+        <div class="social-icons">
+          <a href="#" class="icon"> <i class="fa fa-user circle-icon"></i></a>
+          <a href="#" class="icon"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="icon"><i class="fab fa-github"></i></a>
+          <a href="#" class="icon"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <span>or use your email password</span>
+        <input type="email" name="email2" placeholder="Email" [(ngModel)]="email2">
+        <input type="password" placeholder="Password" name="password" [(ngModel)]="password" >
+        <a href="#">Forget Your Password?</a>
+        <button type="button" (click)="signIn()">Sign In</button>
+      </form>
+    </div>
+  
+    <div class="toggle-container">
+      <div class="toggle">
+        <div class="toggle-panel toggle-left">
+          <h1>Welcome Back!</h1>
+          <p>Enter your personal details to use all of site features</p>
+          <button class="hidden" (click)="signInn()">Sign In</button>
+        </div>
+        <div class="toggle-panel toggle-right">
+          <h1>Hello, Friend!</h1>
+          <p>Register with your personal details to use all of site features</p>
+          <button class="hidden" (click)="signUpp()">Sign Up</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
