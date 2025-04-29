@@ -1,28 +1,71 @@
 <section class="add-room">
-  <h2>Ajouter une Chambre</h2>
+  <h2>ADD ROOM</h2>
 
-  <form (ngSubmit)="addRoom()">
-    <label>Numéro:</label>
-    <input [(ngModel)]="selectedRoom.numero" name="numero" required><br>
+  <form [formGroup]="roomForm" (ngSubmit)="addRoom()">
 
-    <label>Type:</label>
-    <input [(ngModel)]="selectedRoom.type" name="type" required><br>
+    <div class="form-group">
+      <label>Numero:</label>
+      <input formControlName="numero" class="form-control" placeholder="Entrez le numéro de la chambre">
+      <div *ngIf="roomForm.get('numero')?.touched && roomForm.get('numero')?.invalid" class="text-danger">
+        numero is required.
+      </div>
+    </div>
 
-    <label>Capacité:</label>
-    <input type="number" [(ngModel)]="selectedRoom.capacite" name="capacite" required><br>
+    <div class="form-group">
+      <label>Type:</label>
+      <select formControlName="type" class="form-control">
+        <option value="" disabled>-- Choisissez un type --</option>
+        <option value="Single Room">Single Room</option>
+        <option value="Double Room">Double Room</option>
+        <option value="Suite">Suite</option>
+        <option value="Deluxe Room">Deluxe Room</option>
+      </select>
+      <div *ngIf="roomForm.get('type')?.touched && roomForm.get('type')?.invalid" class="text-danger">
+        Type is required.
+      </div>
+    </div>
 
-    <label>Équipements (séparés par des virgules):</label>
-    <input [(ngModel)]="selectedRoom.equipements" name="equipements" required><br>
+    <div class="form-group">
+      <label>Capacity:</label>
+      <select formControlName="capacite" class="form-control">
+        <option value="" disabled>-- Choisissez la capacité --</option>
+        <option *ngFor="let c of [1,2,3,4,5,6]" [value]="c">{{c}}</option>
+      </select>
+      <div *ngIf="roomForm.get('capacite')?.touched && roomForm.get('capacite')?.invalid" class="text-danger">
+        Capacity is required.
+      </div>
+    </div>
 
-    <label>Tarif (TND):</label>
-    <input type="number" [(ngModel)]="selectedRoom.tarif" name="tarif" required><br>
+    <div class="form-group">
+      <label>Equipements (séparés par des virgules):</label>
+      <input formControlName="equipements" class="form-control" placeholder="Ex: TV, WiFi, Air Conditioner">
+      <div *ngIf="roomForm.get('equipements')?.touched && roomForm.get('equipements')?.invalid" class="text-danger">
+        Equipment is required.
+      </div>
+    </div>
 
-    <label>Étoiles:</label>
-    <input type="number" min="1" max="5" [(ngModel)]="selectedRoom.star" name="star" required><br>
+    <div class="form-group">
+      <label>Price (TND):</label>
+      <input type="number" formControlName="tarif" min="1" step="0.01" class="form-control" placeholder="Ex: 100.00">
+      <div *ngIf="roomForm.get('tarif')?.touched && roomForm.get('tarif')?.invalid" class="text-danger">
+        Price required and must be greater than 0.
+      </div>
+    </div>
 
-    <label>Image URL:</label>
-    <input [(ngModel)]="selectedRoom.urlImage" name="urlImage"><br>
+    <div class="form-group">
+      <label>Stars:</label>
+      <input type="number" formControlName="star" min="1" max="5" step="1" class="form-control">
+      <div *ngIf="roomForm.get('star')?.touched && roomForm.get('star')?.invalid" class="text-danger">
+        Stars must be between 1 and 5.
+      </div>
+    </div>
 
-    <button type="submit" class="btn btn-success">Enregistrer</button>
+    <div class="form-group">
+      <label>URL image:</label>
+      <input formControlName="urlImage" class="form-control" placeholder="http://...">
+    </div>
+
+    <button type="submit" class="btn btn-success mt-3" [disabled]="roomForm.invalid">Add</button>
+
   </form>
 </section>

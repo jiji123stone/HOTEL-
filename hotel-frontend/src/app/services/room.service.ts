@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Reservation } from '../reservation';
 
 @Injectable({
   providedIn: 'root'
@@ -32,9 +33,13 @@ export class RoomService {
     return this.http.delete<any>(`${this.reservationUrl}/${id}`);
   }
 
-  // Mettre à jour une réservation
-  updateReservation(reservation: any): Observable<any> {
-    return this.http.put<any>(`${this.reservationUrl}/${reservation.id}`, reservation);
+  updateReservation(reservation: Reservation): Observable<any> {
+    const updateData = {
+      dateArrivee: reservation.dateArrivee,
+      dateDepart: reservation.dateDepart,
+      typePaiement: reservation.typePaiement
+    };
+    return this.http.patch<any>(`${this.reservationUrl}/${reservation.id}`, updateData);
   }
 
 

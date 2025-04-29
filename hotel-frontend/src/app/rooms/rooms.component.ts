@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { RoomService } from '../services/room.service';
 
 @Component({
@@ -11,6 +12,7 @@ export class RoomsComponent implements OnInit {
   reservationList: any[] = [];
   selectedRoom: any = null;
   showModal = false;
+  clientId!: number;  // ici on stocke le client ID récupéré de l'URL
 
   reservationData = {
     dateArrivee: '',
@@ -18,15 +20,25 @@ export class RoomsComponent implements OnInit {
     nombrePersonnes: 1,
     typePaiement: '',
     montantTotal: 0,
-    client_id: 1,
+    client_id: 1, // valeur par défaut, sera écrasée après
   };
 
-  constructor(private roomService: RoomService) {}
+  constructor(
+    private roomService: RoomService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
+    // Correction ici : récupérer directement depuis this.route.params
+    this.route.params.subscribe(params => {
+      this.clientId = +params['id']; // convertir en number
+      console.log('Client ID récupéré:', this.clientId);
+    });
+  
     this.loadRooms();
     this.loadReservations();
   }
+  
 
   // Charger les chambres depuis l'API
   loadRooms() {
@@ -51,14 +63,14 @@ export class RoomsComponent implements OnInit {
     this.selectedRoom = room;
     this.showModal = true;
 
-    // Réinitialiser les données de réservation
+    // Réinitialiser les données de réservation avec le bon client ID
     this.reservationData = {
       dateArrivee: '',
       dateDepart: '',
       nombrePersonnes: 1,
       typePaiement: '',
       montantTotal: 0,
-      client_id:1 
+      client_id: this.clientId  // très important
     };
   }
 
@@ -87,16 +99,14 @@ export class RoomsComponent implements OnInit {
     const reservation = {
       ...this.reservationData,
       chambre: { id: this.selectedRoom.id },
-      client: { id: 1 }
+      client: { id: this.clientId }  // très important aussi
     };
 
     // Ajouter la réservation
     this.roomService.addReservation(reservation).subscribe(() => {
-      // Mettre à jour le statut de la chambre à réservée (1) uniquement
-      this.selectedRoom.reserved = 1; // Met à jour le statut réservé localement
+      this.selectedRoom.reserved = 1; // mettre à jour localement
       this.roomService.updateRoomStatus(this.selectedRoom.id, 1).subscribe(() => {
-        // Recharger les chambres après la réservation pour voir la mise à jour
-        this.loadRooms();
+        this.loadRooms();  // recharger les chambres
         this.closeModal();
       });
     });

@@ -1,52 +1,231 @@
+/*--------Reservations---------*/
+.reservations {
+  position: relative;
+  padding: 40px 0;
+  background-color: #f9f9f9;
+}
+
+.reservations .heading {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.reservations .heading h1 {
+  font-size: 32px;
+  color: #333;
+}
+
+.reservations .heading h2 {
+  font-size: 24px;
+  color: #555;
+}
+
+.reservations .heading p {
+  font-size: 16px;
+  color: #777;
+}
+
+.reservations .content {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.cards-list {
+  display: flex;
+  flex-wrap: nowrap; /* PAS de retour à la ligne */
+  overflow-x: auto; /* Scroll horizontal si besoin */
+  gap: 20px; /* Espacement entre les cartes */
+  padding-bottom: 10px;
+}
+
+.reservations .items {
+  flex: 0 0 auto;
+  width: 300px; /* Fixer la largeur des cartes */
+  margin-right: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.reservations .items:hover {
+  transform: translateY(-10px); /* Effet de soulèvement au survol */
+}
+
+.reservations .card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.reservations .image {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+}
+
+.reservations .image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.reservations .text {
+  padding: 20px;
+}
+
+.reservations h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.reservations .rate {
+  margin-bottom: 10px;
+}
+
+.reservations .rate i {
+  font-size: 14px;
+  color: #fbb234;
+  margin-right: 3px;
+}
+
+.reservations p {
+  margin: 10px 0;
+  opacity: 0.7;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.reservations h3 {
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 500;
+  color: #7fc142;
+  margin: 0;
+}
+
+.reservations h3 span {
+  font-size: 15px;
+  font-weight: 400;
+  color: #000;
+}
+
+.reservations .buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.reservations .primary-btn {
+  padding: 10px 20px;
+  background-color: #7fc142;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.reservations .primary-btn:hover {
+  background-color: #6ba539;
+}
+
+.reservations .danger {
+  background-color: #e74c3c;
+}
+
+.reservations .danger:hover {
+  background-color: #c0392b;
+}
+
 .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 500px;
+  text-align: left;
+  position: relative;
+  animation: fadeIn 0.3s ease-in-out;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.modal-content .close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-content label {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.modal-content input,
+.modal-content select {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-top: 5px;
+}
+
+.modal-content .primary-btn {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #6ba539;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.modal-content .primary-btn:hover {
+  background-color: #5a9031;
+}
+
+.modal-content p {
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
   }
-  
-  .modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    width: 400px;
-    max-width: 90%;
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
-  
-  .close {
-    font-size: 1.5rem;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .card {
-    border: 1px solid #ccc;
-    margin: 10px;
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .card img {
-    width: 100%;
-    height: auto;
-  }
-  
-  .primary-btn {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .primary-btn.danger {
-    background-color: #dc3545;   
-  }
-  
+}

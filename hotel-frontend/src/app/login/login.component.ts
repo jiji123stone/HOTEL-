@@ -55,7 +55,7 @@ export class LoginComponent {
         this.client = data;
         console.log('Client trouvé:', this.client);
         alert('Bienvenue ' + this.client.nom);
-        this.router.navigate(['/header']); 
+        this.router.navigate(['/user/',`${this.client.id}`]); 
        
       },
       error: (err) => {
@@ -70,6 +70,8 @@ export class LoginComponent {
       this.adminTrouve = this.adminService.rechercherParPassword(this.password);
     if (this.adminTrouve) {
       alert('Admin trouvé : ' + this.adminTrouve.nom);
+
+      this.router.navigate(['/admin']);
     } else {
       alert('Aucun admin trouvé avec ce mot de passe.');
     }

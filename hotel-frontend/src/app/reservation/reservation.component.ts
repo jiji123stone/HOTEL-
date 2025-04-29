@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RoomService } from '../services/room.service';
+import { Reservation } from '../reservation'; // N'oublie pas d'importer ton interface !
 
 @Component({
   selector: 'app-reservation',
@@ -7,35 +8,29 @@ import { RoomService } from '../services/room.service';
   styleUrls: ['./reservation.component.css']
 })
 export class ReservationComponent implements OnInit {
-  reservations: any[] = [];
+  reservations: Reservation[] = [];
 
   showModal = false;
-  selectedReservation = {
-    id: null,
-    numero: '',
-    capacite: 0,
-    equipements: '',
+  selectedReservation: Reservation = {
+    id: 0,
+    chambre: null!,
+    client: null!,
     dateArrivee: '',
     dateDepart: '',
-    tarif: 0,
-    typePaiement: '',
-    image: '',
     nombrePersonnes: 1,
-    total: 0,
-    type: '',
-    reserved: 0
+    typePaiement: '',
+    montantTotal: 0
   };
 
   constructor(private roomService: RoomService) {}
 
   ngOnInit(): void {
-    // S'abonner à l'Observable pour récupérer les réservations
     this.roomService.getReservationList().subscribe((data) => {
-      this.reservations = data;  // Remplir la liste des réservations dès que les données sont récupérées
+      this.reservations = data;
     });
   }
 
-  openModal(reservation: any) {
+  openModal(reservation: Reservation) {
     this.selectedReservation = { ...reservation };
     this.showModal = true;
   }
@@ -45,21 +40,32 @@ export class ReservationComponent implements OnInit {
   }
 
   updateReservation() {
-    const updatedReservation = { ...this.selectedReservation };
-    const index = this.reservations.findIndex(r => r.id === updatedReservation.id);
-    if (index !== -1) {
-      this.reservations[index] = updatedReservation;
-      this.roomService.updateReservation(updatedReservation).subscribe(() => {
-        // Afficher un message de succès ou d'erreur après la mise à jour
-        console.log('Réservation mise à jour avec succès');
-      });
-    }
-    this.closeModal();
+    const partialReservation: Reservation = {
+      id: this.selectedReservation.id,
+      chambre: null!,
+      client: null!,
+      dateArrivee: this.selectedReservation.dateArrivee,
+      dateDepart: this.selectedReservation.dateDepart,
+      nombrePersonnes: 0,
+      typePaiement: this.selectedReservation.typePaiement,
+      montantTotal: 0
+    };
+
+    this.roomService.updateReservation(partialReservation).subscribe(() => {
+      console.log('Réservation mise à jour avec succès');
+      // Mettre à jour localement la liste si nécessaire
+      const index = this.reservations.findIndex(r => r.id === partialReservation.id);
+      if (index !== -1) {
+        this.reservations[index].dateArrivee = partialReservation.dateArrivee;
+        this.reservations[index].dateDepart = partialReservation.dateDepart;
+        this.reservations[index].typePaiement = partialReservation.typePaiement;
+      }
+      this.closeModal();
+    });
   }
 
   deleteReservation(id: number) {
     this.roomService.deleteReservation(id).subscribe(() => {
-      // Supprimer la réservation après avoir reçu une confirmation du serveur
       this.reservations = this.reservations.filter(r => r.id !== id);
       console.log('Réservation supprimée');
     });

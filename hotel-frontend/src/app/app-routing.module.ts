@@ -3,18 +3,18 @@ import { RouterModule, Routes } from '@angular/router';
 import { AddRoomComponent } from './add-room/add-room.component';
 import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
+import { UserPageComponent } from './user-page/user-page.component';
+import { AdminPageComponent } from './admin-page/admin-page.component';
 
 const routes: Routes = [
-  { path: 'add-room', component: AddRoomComponent }, 
-  { 
-    path: 'login', 
-    component: LoginComponent
-    
-  },
-  { path: 'header', component: HeaderComponent }, 
-  
+   
+  { path: '', component: LoginComponent }, // par défaut page login
+  { path: 'user/:id', component: UserPageComponent } ,// page après login
+  { path: 'add-room', component: AddRoomComponent },
+  { path: 'admin', component: AdminPageComponent },
 
-  { path: '', redirectTo: '/login', pathMatch: 'full' }
+
+  
 ];
 
 

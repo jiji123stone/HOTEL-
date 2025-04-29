@@ -1,9 +1,10 @@
 <section class="rooms">
   <div class="container top">
     <div class="heading">
-      <h1>GÉRER</h1>
-      <h2>Les Chambres</h2>
-      <p>Modifier ou supprimer les chambres disponibles</p>
+      <h1>MANAGE</h1>
+<h2>The Rooms</h2>
+<p>Modify or delete available rooms</p>
+
     </div>
 
     <div class="content mtop">
@@ -26,9 +27,9 @@
               <p>{{ room.capacite }} personne(s). <br>Équipements : {{ room.equipements.join(', ') }}.</p>
 
               <div class="button flex">
-                <button class="primary-btn" (click)="openModal(room)">Modifier</button> 
-                <button class="primary-btn danger" (click)="deleteRoom(room.id)">Supprimer</button>
-                <h3>{{ room.tarif }} TND <span><br>Par Nuit</span></h3>
+                <button class="primary-btn" (click)="openModal(room)">Update</button> 
+                <button class="primary-btn danger" (click)="deleteRoom(room.id)">Delete</button>
+                <h3>{{ room.tarif }} TND <span><br>Per Night</span></h3>
               </div>
             </div>
           </div>

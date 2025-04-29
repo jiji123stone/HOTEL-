@@ -13,17 +13,20 @@ export class HomeComponent implements OnInit, AfterViewInit {
     {
       image: 'assets/images/banner-1.png',
       title: 'Spend Your Holiday',
-      description: 'Lorem ipsum dolor sit amet constur adipisicing elit sed do eiusmtem por incid.'
+      description: 'Discover comfort and luxury while you relax and create lasting memories during your holiday with us.'
+
     },
     {
       image: 'assets/images/banner-2.png',
       title: 'Spend Your Holiday',
-      description: 'Lorem ipsum dolor sit amet constur adipisicing elit sed do eiusmtem por incid.'
+description: 'Discover comfort and luxury while you relax and create lasting memories during your holiday with us.'
+
     },
     {
       image: 'assets/images/banner-3.png',
       title: 'Spend Your Holiday',
-      description: 'Lorem ipsum dolor sit amet constur adipisicing elit sed do eiusmtem por incid.'
+description: 'Discover comfort and luxury while you relax and create lasting memories during your holiday with us.'
+
     }
   ];
 

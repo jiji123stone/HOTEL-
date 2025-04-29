@@ -27,13 +27,14 @@
       <form>
         <h1>Sign In</h1>
         <div class="social-icons">
-          <a href="#" class="icon"> <i class="fa fa-user circle-icon"></i></a>
+          <a href="#" class="icon"> <i class="fab fa-google"></i></a>
           <a href="#" class="icon"><i class="fab fa-facebook-f"></i></a>
           <a href="#" class="icon"><i class="fab fa-github"></i></a>
           <a href="#" class="icon"><i class="fab fa-linkedin-in"></i></a>
         </div>
         <span>or use your email password</span>
         <input type="email" name="email2" placeholder="Email" [(ngModel)]="email2">
+        <p class="admin">for admin**</p>
         <input type="password" placeholder="Password" name="password" [(ngModel)]="password" >
         <a href="#">Forget Your Password?</a>
         <button type="button" (click)="signIn()">Sign In</button>

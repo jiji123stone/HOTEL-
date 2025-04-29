@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -7,6 +8,19 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
   menuOpen: boolean = false;
+
+
+  constructor(private router: Router) {}
+
+  isModalOpen: boolean = false;
+
+  openModal() {
+    this.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+  }
 
   toggleMenu() {
     this.menuOpen = !this.menuOpen;

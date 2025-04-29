@@ -11,13 +11,26 @@
           <li><a href="#rooms">rooms</a></li>
           <li><a href="#pages">pages</a></li>
           <li><a href="#news">news</a></li>
-          <li><a routerLink="/add-room">Add Room</a></li>
+           
 
           <li><i class="fa fa-user circle-icon"></i></li>
+          <li>
+            <a (click)="openModal()" class="btn-add-room">Add Room</a>
+          </li>
+          
+
           <li><button class="primary-btn">BOOK NOW</button></li>
         </ul>
         <span class="fa fa-bars" (click)="toggleMenu()"></span>
       </div>
     </div>
+
+  <!-- Modal -->
+<div *ngIf="isModalOpen" class="modal-overlay" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="close-btn" (click)="closeModal()">&#10005;</button> <!-- Crois -->
+    <app-add-room></app-add-room>
+  </div>
+</div>
   </header>
   
