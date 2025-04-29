@@ -9,7 +9,7 @@ import { Admin } from '../admin';
 export class AdminService {
   // Liste des administrateurs
   private admins: Admin[] = [
-    { nom: 'admin1', password: '123' },
+    { nom: 'Jaweher', password: '123' },
     { nom: 'admin2', password: 'password456' },
     { nom: 'admin3', password: 'password789' },
   ];

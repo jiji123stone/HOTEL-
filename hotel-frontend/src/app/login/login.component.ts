@@ -4,6 +4,7 @@ import { Client } from '../client';
 import { AdminService } from '../services/admin.service';
 import { Admin } from '../admin';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,7 @@ export class LoginComponent {
   prenom: string = '';
   tel:string= '' ; // même si ton entité ne gère pas encore password
 
-  constructor(private clientService: ClientService , private adminService: AdminService , private router: Router) {}
+  constructor(private clientService: ClientService , private adminService: AdminService , private router: Router ,private authService: AuthService) {}
 
   signUp() {
     const client: Client = {
@@ -48,40 +49,29 @@ export class LoginComponent {
   client?: Client;
   
   signIn() {
-    if(this.email2.length>0){ 
-    console.log("hhhhiii",this.email2)
-    this.clientService.getClientByEmail(this.email2).subscribe({
-      next: (data) => {
-        this.client = data;
-        console.log('Client trouvé:', this.client);
-        alert('Bienvenue ' + this.client.nom);
-        this.router.navigate(['/user/',`${this.client.id}`]); 
-       
-      },
-      error: (err) => {
-        console.error('Erreur lors de la recherche du client:', err);
-        alert('Aucun client trouvé avec cet email.');
-      }
-      
-    }); }
-
-    else {
-
-      this.adminTrouve = this.adminService.rechercherParPassword(this.password);
-    if (this.adminTrouve) {
-      alert('Admin trouvé : ' + this.adminTrouve.nom);
-
-      this.router.navigate(['/admin']);
+    if (this.email2.length > 0) {
+      this.clientService.getClientByEmail(this.email2).subscribe({
+        next: (data) => {
+          this.authService.setAdmin(false);  // ← non admin
+          this.client = data;
+          alert('Bienvenue ' + this.client.nom);
+          this.router.navigate(['/user/', `${this.client.id}`]);
+        },
+        error: (err) => {
+          alert('Aucun client trouvé avec cet email.');
+        }
+      });
     } else {
-      alert('Aucun admin trouvé avec ce mot de passe.');
+      this.adminTrouve = this.adminService.rechercherParPassword(this.password);
+      if (this.adminTrouve) {
+        this.authService.setAdmin(true);  // ← admin détecté
+        alert('Admin trouvé : ' + this.adminTrouve.nom);
+        this.router.navigate(['/admin']);
+      } else {
+        alert('Aucun admin trouvé avec ce mot de passe.');
+      }
     }
-
-    }
-
-  
-
   }
-
 
 
 
